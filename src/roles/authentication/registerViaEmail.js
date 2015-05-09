@@ -61,7 +61,7 @@ setInterval(() => {
 
   co(function* () {
 
-    let r = yield registerViaEmail('si@ibrokethat.com', 'password');
+    let r = yield call({role: config.roles.AUTHENTICATION, cmd: config.cmds.REGISTER_VIA_EMAIL}, 'si@ibrokethat.com');
     console.log(r);
 
   });
