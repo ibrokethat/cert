@@ -1,0 +1,8 @@
+PubSub:
+  environment:
+    RABBITMQ_NODENAME: "pubsub"
+    RABBITMQ_MNESIA_BASE: "/var/lib/rabbitmq/mnesia"
+    RABBITMQ_LOG_BASE: "/var/log/rabbitmq"
+  image: rabbitmq
+  ports:
+    - "5673:5672"

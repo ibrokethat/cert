@@ -1,0 +1,8 @@
+roles:
+  AUTHENTICATION: authentication
+  VERIFICATION: verification
+cmds:
+  IS_CERTIFIED: isCertified
+  REGISTER_VIA_EMAIL: registerViaEmail
+uris:
+  amqp: 'amqp://0.0.0.0:5673'
