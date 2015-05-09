@@ -41,7 +41,12 @@ export const INPUT_SCHEMA = {
   'title': 'verification arguments',
   'type': 'array',
   'items': [
-    'emailSchema'
+    {
+      'email': {
+        'type': 'string',
+        'format': 'email'
+      }
+    }
   ]
 }
 
@@ -53,7 +58,10 @@ export const OUTPUT_SCHEMA = {
   'title': 'verification response',
   'type': 'object',
   'properties': {
-    'email': 'emailSchema',
+    'email': {
+      'type': 'string',
+      'format': 'email'
+    },
     'isCertified': {
       'type': 'boolean'
     }
@@ -64,12 +72,12 @@ export const OUTPUT_SCHEMA = {
 register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, isCertified);
 
 
-setInterval(() => {
+// setInterval(() => {
 
-  co(function* () {
+//   co(function* () {
 
-    let r = yield call({role: config.roles.VERIFICATION, cmd: config.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
-    console.log(r);
+//     let r = yield call({role: config.roles.VERIFICATION, cmd: config.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
+//     console.log(r);
 
-  });
-}, 200);
+//   });
+// }, 200);

@@ -27,7 +27,12 @@ export const INPUT_SCHEMA = {
   'title': 'registration arguments',
   'type': 'array',
   'items': [
-    'emailSchema'
+    {
+      'email': {
+        'type': 'string',
+        'format': 'email'
+      }
+    }
   ]
 }
 
@@ -39,7 +44,10 @@ export const OUTPUT_SCHEMA = {
   'title': 'registration response',
   'type': 'object',
   'properties': {
-    'email': 'emailSchema',
+    'email': {
+      'type': 'string',
+      'format': 'email'
+    },
     'registration': {
       'type': 'boolean'
     }
