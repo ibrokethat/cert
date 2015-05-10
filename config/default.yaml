@@ -1,16 +1,21 @@
 roles:
   AUTHENTICATION: authentication
+  MESSAGING: messaging
   VERIFICATION: verification
 
 entities:
-  USER: user
-  ORGANISATION: organistion
+  ORGANISATIONs: organistions
+  USERs: users
 
 cmds:
+  CREATE: create
+  DELETE: delete
+  UPDATE: update
+  GET_BY_ID: getById
+  FIND_BY_EMAIL: findByEmail
   IS_CERTIFIED: isCertified
   REGISTER_VIA_EMAIL: registerViaEmail
-  CREATE: create
-  FIND_BY_EMAIL: findByEmail
+  SEND_EMAIL: sendEmail
 
 uris:
   amqp: 'amqp://0.0.0.0:5673'
@@ -33,3 +38,6 @@ log:
     LOG: 1
     WARN: 1
     DEBUG: 0
+
+emails:
+  REGISTRATION_AUTHENTICATION: registrationAuthentication

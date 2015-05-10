@@ -22,6 +22,13 @@ if (blah blah) {
 }
 ```
 
+exclude elements from main schemas to create inputs and outputs
+always ouput the most elements by default - as in get full record from db
+then in transformer exclude based upon status, red, green, gold
+once excluded fetch and associated data
+and transform again
+
+
 
 ## Message format
 

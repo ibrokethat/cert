@@ -26,7 +26,19 @@ export default function* registerViaEmail (email, password) {
     return new e.Conflict('Email address already taken');
   }
 
-  return yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, email, password);
+  user = yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, email, password);
+
+  let email = yield call({role: CONF.roles.MESSAGE, cmd: CONF.cmds.SEND_EMAIL}, CONF.emails.REGISTRATION_AUTHENTICATION, user);
+
+  if (!email) {
+
+    return new e.InternalServerError();
+  }
+
+  return {
+    //  registration success - now verifiy from email link
+  }
+
 
 }
 
