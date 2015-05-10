@@ -1,11 +1,31 @@
 roles:
   AUTHENTICATION: authentication
   VERIFICATION: verification
+
+entities:
+  USER: user
+  ORGANISATION: organistion
+
 cmds:
   IS_CERTIFIED: isCertified
   REGISTER_VIA_EMAIL: registerViaEmail
+  CREATE: create
+  FIND_BY_EMAIL: findByEmail
+
 uris:
   amqp: 'amqp://0.0.0.0:5673'
+
+http:
+  authentication:
+    registerViaEmail:
+      port: 10100
+      method: post
+
+  verification:
+    isCertified:
+      port: 10101
+      method: get
+
 log:
   customlevels:
     ERROR: 1

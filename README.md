@@ -34,6 +34,18 @@ if (blah blah) {
 }
 ```
 
+let db = {
+  user: {
+    find: function (email) {
+      return Promise.resolve({
+        email: email
+      });
+    }
+  }
+}
+
+
+
 roles
   authentication
     register
@@ -50,7 +62,9 @@ entities
     delete
     find
     update
-  organistations
+    linkUserNamesToEmail
+    linkOrganisationsToUserNames
+  organistations - top level as
     create
     get
     delete

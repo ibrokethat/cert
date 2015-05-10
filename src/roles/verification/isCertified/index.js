@@ -1,8 +1,9 @@
 'use strict';
 
 import co from 'co';
-import config from 'config';
+import CONF from 'config';
 
+import {bindToHttp} from '../../../../lib/api';
 import {call, register} from '../../../../lib/app';
 
 import {INPUT_SCHEMA} from './schemas/input';
@@ -10,14 +11,14 @@ import {OUTPUT_SCHEMA} from './schemas/output';
 
 
 export const META = {
-  role: config.roles.VERIFICATION,
-  cmd: config.cmds.IS_CERTIFIED
+  role: CONF.roles.VERIFICATION,
+  cmd: CONF.cmds.IS_CERTIFIED
 }
 
 
 export default function* isCertified (email) {
 
-  let user = yield db.user.find({email: email});
+  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, email);
 
   return {
     email: email,
@@ -25,27 +26,19 @@ export default function* isCertified (email) {
   };
 }
 
-
-
-let db = {
-  user: {
-    find: function (email) {
-      return Promise.resolve({
-        email: email
-      });
-    }
-  }
-}
-
-
+//  register the service with the message queue
 register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, isCertified);
+
+//  expose over http
+bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
+
 
 
 // setInterval(() => {
 
 //   co(function* () {
 
-//     let r = yield call({role: config.roles.VERIFICATION, cmd: config.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
+//     let r = yield call({role: CONF.roles.VERIFICATION, cmd: CONF.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
 //     console.log(r);
 
 //   });

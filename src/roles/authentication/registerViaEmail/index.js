@@ -1,8 +1,9 @@
 'use strict';
 
 import co from 'co';
-import config from 'config';
+import CONF from 'config';
 
+import {bindToHttp} from '../../../../lib/api';
 import {call, register} from '../../../../lib/app';
 
 import {INPUT_SCHEMA} from './schemas/input';
@@ -10,24 +11,38 @@ import {OUTPUT_SCHEMA} from './schemas/output';
 
 
 export const META = {
-  role: config.roles.AUTHENTICATION,
-  cmd: config.cmds.REGISTER_VIA_EMAIL
+  role: CONF.roles.AUTHENTICATION,
+  cmd: CONF.cmds.REGISTER_VIA_EMAIL
 }
 
 
-export default function* registerViaEmail (email) {
+export default function* registerViaEmail (email, password) {
 
-  let user = yield call({role: config.roles.VERIFICATION, cmd: config.cmds.IS_CERTIFIED}, email);
-  return user;
+  //  is the email address already registered
+  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, email);
+
+  if (user) {
+
+    return new e.Conflict('Email address already taken');
+  }
+
+  return yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, email, password);
+
 }
 
+
+//  register the service with the message queue
 register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, registerViaEmail);
+
+//  expose over http
+bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
+
 
 setInterval(() => {
 
   co(function* () {
 
-    let r = yield call({role: config.roles.AUTHENTICATION, cmd: config.cmds.REGISTER_VIA_EMAIL}, 'si@ibrokethat.com');
+    let r = yield call({role: CONF.roles.AUTHENTICATION, cmd: CONF.cmds.REGISTER_VIA_EMAIL}, 'si@ibrokethat.com');
     console.log(r);
 
   });
