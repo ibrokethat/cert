@@ -34,3 +34,25 @@ if (blah blah) {
 }
 ```
 
+roles
+  authentication
+    register
+    registerViaFacebook, etc
+    login
+    loginViaFacebook, etc
+  verification
+    isCertified
+  warning
+entities
+  user
+    create
+    get
+    delete
+    find
+    update
+  organistations
+    create
+    get
+    delete
+    find
+    update

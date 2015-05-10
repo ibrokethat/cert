@@ -1,5 +1,5 @@
 {
-  "name": "@ibrokethat/cert",
+  "name": "cert/authentication/registerViaEmail",
   "description": "making the web a better place",
   "version": "0.0.0",
   "author": "si@ibrokethat.com",
@@ -24,19 +24,15 @@
     "mocha": "latest",
     "sinon": "latest"
   },
-  "keywords": [
-    "ibrokethat",
-    "curry",
-    "es6"
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
     "url": "git@github.com:ibrokethat/cert"
   },
-  "main": "lib/curry.js",
+  "main": "main.js",
   "scripts": {
-    "register-via-email": "./node_modules/.bin/babel-node --harmony src/roles/authentication/registerViaEmail/index.js",
-    "is-certified": "./node_modules/.bin/babel-node --harmony src/roles/verification/isCertified/index.js",
+    "prepublish": "npm prune && npm run build",
+    "build": "./node_modules/.bin/babel --harmony index.js",
     "test": "./node_modules/.bin/mocha --compilers js:./test/babel --blacklist regenerator,es6.forOf --harmony --colors --recursive -R spec --ui bdd ./test/**/*.test.js --NODE_ENV=test"
   },
   "engines": {
