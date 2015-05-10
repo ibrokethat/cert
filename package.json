@@ -15,6 +15,7 @@
     "co": "^4.5.4",
     "config": "^1.13.0",
     "is-my-json-valid": "^2.10.1",
+    "su-logger": "git+ssh://git@github.com:super-useful/su-logger.git",
     "uuid": "^2.0.1",
     "yaml": "^0.2.3"
   },

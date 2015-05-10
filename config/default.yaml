@@ -6,3 +6,10 @@ cmds:
   REGISTER_VIA_EMAIL: registerViaEmail
 uris:
   amqp: 'amqp://0.0.0.0:5673'
+log:
+  customlevels:
+    ERROR: 1
+    INFO: 1
+    LOG: 1
+    WARN: 1
+    DEBUG: 0

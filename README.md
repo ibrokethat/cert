@@ -1,16 +1,25 @@
 ## coding style
 
 ```
-let my_var = 10;
+let myVar = 10;
 
-function myFunc (my_param, ...args) {}
+let myObj = {
+  myProp: 1
+};
 
-let aFunc =  (x) => x;
+function myFunc (myParam, ...args) {}
 
+let aFunc = (x) => x;
+
+let r = myFunc(1, 2, 3);
 
 class MyClass {}
 
 const MY_CONST = 1;
+
+if (blah blah) {
+
+}
 ```
 
 
