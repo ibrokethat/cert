@@ -20,7 +20,7 @@ cmds:
 uris:
   amqp: 'amqp://0.0.0.0:5673'
 
-http:
+apis:
   authentication:
     registerViaEmail:
       port: 10100
