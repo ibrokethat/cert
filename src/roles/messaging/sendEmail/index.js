@@ -3,27 +3,33 @@
 import co from 'co';
 import CONF from 'config';
 
+import {bindToHttp} from '../../../../lib/api';
 import {call, register} from '../../../../lib/app';
 
 import {INPUT_SCHEMA} from './schemas/input';
-import {USER_SCHEMA} from '../schemas/user';
+import {OUTPUT_SCHEMA} from './schemas/output';
 
 
 export const META = {
-  entities: CONF.entities.USER,
-  cmd: CONF.cmds.FIND_BY_EMAIL
+  role: CONF.roles.VERIFICATION,
+  cmd: CONF.cmds.IS_CERTIFIED
 }
 
 
-export default function* findByEmail (ctx, email) {
+export default function* sendEmail (ctx, messageType, entity) {
 
   let {req, authUser} = ctx;
 
-  return yield db.user.find({email: email});
+  let messageSent = yield someMessage(messageType, entity);
+
+  return messageSent;
 }
 
 //  register the service with the message queue
-register(META, INPUT_SCHEMA, USER_SCHEMA, findByEmail);
+register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, sendEmail);
+
+//  expose over http
+bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
 
 
 

@@ -16,19 +16,21 @@ export const META = {
 }
 
 
-export default function* registerViaEmail (email, password) {
+export default function* registerViaEmail (ctx, email, password) {
+
+  let {req, authUser} = ctx;
 
   //  is the email address already registered
-  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, email);
+  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, ctx, email);
 
   if (user) {
 
     return new e.Conflict('Email address already taken');
   }
 
-  user = yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, email, password);
+  user = yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, ctx, email, password);
 
-  let email = yield call({role: CONF.roles.MESSAGE, cmd: CONF.cmds.SEND_EMAIL}, CONF.emails.REGISTRATION_AUTHENTICATION, user);
+  let email = yield call({role: CONF.roles.MESSAGE, cmd: CONF.cmds.SEND_EMAIL}, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
 
   if (!email) {
 

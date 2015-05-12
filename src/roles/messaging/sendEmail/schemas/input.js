@@ -5,16 +5,17 @@ export const INPUT_SCHEMA = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
   "items": [
+  "minItems": 2,
     {
-      "email": {
-        "type": "string",
-        "format": "email"
+      "messageType": {
+        "type": "string"
       }
     },
     {
-      "password": {
-        "type": "string"
+      "entity": {
+        "type": "object"
       }
     }
+
   ]
 };

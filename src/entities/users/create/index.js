@@ -6,7 +6,7 @@ import CONF from 'config';
 import {call, register} from '../../../../lib/app';
 
 import {INPUT_SCHEMA} from './schemas/input';
-import {OUTPUT_SCHEMA} from './schemas/output';
+import {USER_SCHEMA} from '../schemas/user';
 
 
 export const META = {
@@ -15,13 +15,15 @@ export const META = {
 }
 
 
-export default function* findByEmail (email) {
+export default function* create (ctx, email, password) {
 
-  return yield db.user.find({email: email});
+  let {req, authUser} = ctx;
+
+  return yield db.user.create({email: email, password: password});
 }
 
 //  register the service with the message queue
-register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, findByEmail);
+register(META, INPUT_SCHEMA, USER_SCHEMA, create);
 
 
 

@@ -16,9 +16,11 @@ export const META = {
 }
 
 
-export default function* isCertified (email) {
+export default function* isCertified (ctx, email) {
 
-  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, email);
+  let {req, authUser} = ctx;
+
+  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, ctx, email);
 
   return {
     email: email,
