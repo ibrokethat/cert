@@ -9,8 +9,8 @@ roles:
   VERIFICATION: verification
 
 entities:
-  ORGANISATIONs: organistions
-  USERs: users
+  ORGANISATIONS: organistions
+  USERS: users
 
 cmds:
   CREATE: create
@@ -30,19 +30,19 @@ apis:
   authentication:
     registerViaEmail:
       port: 10100
-      method: post
+      method: POST
       access: red
 
   verification:
     isCertified:
       port: 10101
-      method: get
+      method: GET
       access: red
 
   verification:
     isVaild:
       port: 10102
-      method: get
+      method: GET
       access: red
 
 

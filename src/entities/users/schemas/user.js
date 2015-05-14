@@ -20,7 +20,7 @@ export const USER_SCHEMA = {
     },
     "title": {
       "type": "string",
-      "enum": ["Mr", "Mrs", "Miss", "Dr", "Etc"] // pull in lanaguage specific enums,
+      "enum": ["Mr", "Mrs", "Miss", "Dr"],
       "auth": "green"
     },
     "isCertified": {

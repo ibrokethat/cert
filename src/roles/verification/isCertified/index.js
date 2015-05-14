@@ -34,14 +34,3 @@ register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, isCertified);
 //  expose over http
 bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
 
-
-
-// setInterval(() => {
-
-//   co(function* () {
-
-//     let r = yield call({role: CONF.roles.VERIFICATION, cmd: CONF.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
-//     console.log(r);
-
-//   });
-// }, 200);

@@ -10,29 +10,28 @@ import {USER_SCHEMA} from '../schemas/user';
 
 
 export const META = {
-  entities: CONF.entities.USER,
+  entity: CONF.entities.USERS,
   cmd: CONF.cmds.FIND_BY_EMAIL
+};
+
+
+let db = {
+  users: {
+    find: function ({email}) {
+      return Promise.resolve({
+        email: email,
+        firstName: 'Simon',
+        lastName: 'Jefford'
+      });
+    }
+  }
 }
 
 
 export default function* findByEmail (ctx, email) {
 
-  let {req, authUser} = ctx;
-
-  return yield db.user.find({email: email});
+  return yield db.users.find({email: email});
 }
 
 //  register the service with the message queue
 register(META, INPUT_SCHEMA, USER_SCHEMA, findByEmail);
-
-
-
-// setInterval(() => {
-
-//   co(function* () {
-
-//     let r = yield call({role: CONF.roles.VERIFICATION, cmd: CONF.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
-//     console.log(r);
-
-//   });
-// }, 200);

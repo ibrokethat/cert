@@ -10,6 +10,11 @@ import {INPUT_SCHEMA} from './schemas/input';
 import {OUTPUT_SCHEMA} from './schemas/output';
 
 
+const USER_FIND_BY_EMAIL = {entity: CONF.entities.USERS, cmd: CONF.cmds.FIND_BY_EMAIL};
+const USER_CREATE = {entity: CONF.entities.USERS, cmd: CONF.cmds.CREATE};
+const MESSAGING_SEND_EMAIL = {role: CONF.roles.MESSAGING, cmd: CONF.cmds.SEND_EMAIL};
+
+
 export const META = {
   role: CONF.roles.AUTHENTICATION,
   cmd: CONF.cmds.REGISTER_VIA_EMAIL
@@ -18,28 +23,24 @@ export const META = {
 
 export default function* registerViaEmail (ctx, email, password) {
 
-  let {req, authUser} = ctx;
-
   //  is the email address already registered
-  let user = yield call({entity: CONF.entities.USER, cmd: CONF.cmds.FIND_BY_EMAIL}, ctx, email);
+  let user = yield call(USER_FIND_BY_EMAIL, ctx, email);
 
-  if (user) {
+  // if (user) {
 
-    return new e.Conflict('Email address already taken');
-  }
+  //   return new e.Conflict('Email address already taken');
+  // }
 
-  user = yield call({entity: CONF.entities.USER, CONF.cmds.CREATE}, ctx, email, password);
+  // user = yield call(USER_CREATE, ctx, email, password);
 
-  let email = yield call({role: CONF.roles.MESSAGE, cmd: CONF.cmds.SEND_EMAIL}, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
+  // let emailSent = yield call(MESSAGING_SEND_EMAIL, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
 
-  if (!email) {
+  // if (!emailSent) {
 
-    return new e.InternalServerError();
-  }
+  //   return new e.InternalServerError();
+  // }
 
-  return {
-    //  registration success - now verifiy from email link
-  }
+  return user
 
 
 }
@@ -50,14 +51,3 @@ register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, registerViaEmail);
 
 //  expose over http
 bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
-
-
-setInterval(() => {
-
-  co(function* () {
-
-    let r = yield call({role: CONF.roles.AUTHENTICATION, cmd: CONF.cmds.REGISTER_VIA_EMAIL}, 'si@ibrokethat.com');
-    console.log(r);
-
-  });
-}, 1000);

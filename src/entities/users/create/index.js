@@ -10,7 +10,7 @@ import {USER_SCHEMA} from '../schemas/user';
 
 
 export const META = {
-  entities: CONF.entities.USER,
+  entity: CONF.entities.USER,
   cmd: CONF.cmds.CREATE
 }
 
@@ -24,15 +24,3 @@ export default function* create (ctx, email, password) {
 
 //  register the service with the message queue
 register(META, INPUT_SCHEMA, USER_SCHEMA, create);
-
-
-
-// setInterval(() => {
-
-//   co(function* () {
-
-//     let r = yield call({role: CONF.roles.VERIFICATION, cmd: CONF.cmds.IS_CERTIFIED}, 'sarah@hackneygrove.com');
-//     console.log(r);
-
-//   });
-// }, 200);
