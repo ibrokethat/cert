@@ -3,42 +3,50 @@
 export const USER_SCHEMA = {
 
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "email": {
-      "type": "string",
-      "format": "email",
-      "auth": "red"
-    },
-    "firstName": {
-      "type": "string",
-      "auth": "green"
-    },
-    "lastName": {
-      "type": "string",
-      "auth": "green"
-    },
-    "title": {
-      "type": "string",
-      "enum": ["Mr", "Mrs", "Miss", "Dr"],
-      "auth": "green"
-    },
-    "isCertified": {
+  "oneOf": [
+    {
       "type": "boolean",
-      "auth": "red"
+      "enum": [false]
     },
-    "password": {
-      "type": "string"
-    },
-    "sex": {
-      "type": "string",
-      "enum": ["m", "f"],
-      "auth": "green"
+    {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "auth": "red"
+        },
+        "firstName": {
+          "type": "string",
+          "auth": "green"
+        },
+        "lastName": {
+          "type": "string",
+          "auth": "green"
+        },
+        "title": {
+          "type": "string",
+          "enum": ["Mr", "Mrs", "Miss", "Dr"],
+          "auth": "green"
+        },
+        "isCertified": {
+          "type": "boolean",
+          "auth": "red"
+        },
+        "password": {
+          "type": "string"
+        },
+        "sex": {
+          "type": "string",
+          "enum": ["m", "f"],
+          "auth": "green"
 
-    },
-    "cc-no": {
-      "type": "number"
+        },
+        "cc-no": {
+          "type": "number"
+        }
+      }
     }
-  }
+  ]
 };
 

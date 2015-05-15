@@ -18,11 +18,7 @@ export const META = {
 let db = {
   users: {
     find: function ({email}) {
-      return Promise.resolve({
-        email: email,
-        firstName: 'Simon',
-        lastName: 'Jefford'
-      });
+      return Promise.resolve(false);
     }
   }
 }

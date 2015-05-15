@@ -6,15 +6,13 @@ export const INPUT_SCHEMA = {
   "type": "array",
   "items": [
     {
-      "email": {
-        "type": "string",
-        "format": "email"
-      }
+      "title": "email",
+      "type": "string",
+      "format": "email"
     },
     {
-      "password": {
-        "type": "string"
-      }
+      "title": "password",
+      "type": "string"
     }
   ]
 };
