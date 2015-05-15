@@ -11,8 +11,8 @@ import {OUTPUT_SCHEMA} from './schemas/output';
 
 
 export const META = {
-  role: CONF.roles.VERIFICATION,
-  cmd: CONF.cmds.IS_CERTIFIED
+  role: CONF.roles.MESSAGING,
+  cmd: CONF.cmds.SEND_EMAIL
 }
 
 
