@@ -42,6 +42,7 @@
     "register-via-email": "./node_modules/.bin/babel-node --harmony src/roles/authentication/registerViaEmail/index.js",
     "find-by-email": "./node_modules/.bin/babel-node --harmony src/entities/users/findByEmail/index.js",
     "create-user": "./node_modules/.bin/babel-node --harmony src/entities/users/create/index.js",
+    "send-message": "./node_modules/.bin/babel-node --harmony src/roles/messaging/sendEmail/index.js",
     "is-certified": "./node_modules/.bin/babel-node --harmony src/roles/verification/isCertified/index.js",
     "test": "./node_modules/.bin/mocha --compilers js:./test/babel --blacklist regenerator,es6.forOf --harmony --colors --recursive -R spec --ui bdd ./test/**/*.test.js --NODE_ENV=test"
   },

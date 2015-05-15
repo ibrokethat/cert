@@ -25,7 +25,7 @@ export default function* registerViaEmail (ctx, email, password) {
 
   //  is the email address already registered
   let user = yield call(USER_FIND_BY_EMAIL, ctx, email);
-  console.log(user)
+
   if (user) {
 
     return new e.Conflict('Email address already taken');
@@ -33,12 +33,12 @@ export default function* registerViaEmail (ctx, email, password) {
 
   user = yield call(USER_CREATE, ctx, email, password);
 
-  // let emailSent = yield call(MESSAGING_SEND_EMAIL, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
+  let emailSent = yield call(MESSAGING_SEND_EMAIL, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
 
-  // if (!emailSent) {
+  if (!emailSent) {
 
-  //   return new e.InternalServerError();
-  // }
+    return new e.InternalServerError();
+  }
 
   return user
 

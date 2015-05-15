@@ -4,18 +4,15 @@ export const INPUT_SCHEMA = {
 
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
-  "items": [
   "minItems": 2,
+  "items": [
     {
-      "messageType": {
-        "type": "string"
-      }
+      "title": "messageType",
+      "type": "string"
     },
     {
-      "entity": {
-        "type": "object"
-      }
+      "title": "entity",
+      "type": "object"
     }
-
   ]
 };

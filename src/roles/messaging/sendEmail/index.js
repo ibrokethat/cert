@@ -16,17 +16,15 @@ export const META = {
 }
 
 
+function someMEssage() {
+  return Promise.resolve(true);
+}
+
 export default function* sendEmail (ctx, messageType, entity) {
 
-  let {req, authUser} = ctx;
+  return yield someMessage(messageType, entity);
 
-  let messageSent = yield someMessage(messageType, entity);
-
-  return messageSent;
 }
 
 //  register the service with the message queue
 register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, sendEmail);
-
-//  expose over http
-bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
