@@ -1,0 +1,31 @@
+meta:
+  service:
+    role: authentication
+    cmd: registerViaEmail
+  http:
+    port: 10100
+    method: POST
+    access: red
+
+
+services:
+  users:
+    findByEmai:
+      entity: users
+      cmd: findByEmail
+    create:
+      entity: users
+      cmd: create
+  messaging:
+    sendEmail:
+      role: messaging
+      cmd: sendEmail
+
+log:
+  customlevels:
+    ERROR: 1
+    INFO: 1
+    LOG: 1
+    WARN: 1
+    DEBUG: 0
+

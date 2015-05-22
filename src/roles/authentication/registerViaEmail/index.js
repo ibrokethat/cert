@@ -3,37 +3,36 @@
 import co from 'co';
 import CONF from 'config';
 
-import {bindToHttp} from '../../../../lib/api';
-import {call, register} from '../../../../lib/app';
+import {register} from '@package/etcd';
+import {bindToHttp, get, post} from '@package/http';
+import {call} from '@package/amqp';
 
 import {INPUT_SCHEMA} from './schemas/input';
 import {OUTPUT_SCHEMA} from './schemas/output';
 
 
-const USER_FIND_BY_EMAIL = {entity: CONF.entities.USERS, cmd: CONF.cmds.FIND_BY_EMAIL};
-const USER_CREATE = {entity: CONF.entities.USERS, cmd: CONF.cmds.CREATE};
-const MESSAGING_SEND_EMAIL = {role: CONF.roles.MESSAGING, cmd: CONF.cmds.SEND_EMAIL};
+//  register with etcd
+register(CONF.meta);
 
+//  load services
+let users;
+let messaging;
 
-export const META = {
-  role: CONF.roles.AUTHENTICATION,
-  cmd: CONF.cmds.REGISTER_VIA_EMAIL
-}
-
+bindServices(CONF.services).on('active', (services) => {users, messaging} = services));
 
 export default function* registerViaEmail (ctx, email, password) {
 
   //  is the email address already registered
-  let user = yield call(USER_FIND_BY_EMAIL, ctx, email);
+  let user = yield users.findByEmail(ctx, email);
 
   if (user) {
 
     return new e.Conflict('Email address already taken');
   }
 
-  user = yield call(USER_CREATE, ctx, email, password);
+  user = yield users.create(ctx, email, password);
 
-  let emailSent = yield call(MESSAGING_SEND_EMAIL, ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
+  let emailSent = yield messaging.sendEmai(ctx, CONF.emails.REGISTRATION_AUTHENTICATION, user);
 
   if (!emailSent) {
 
@@ -46,8 +45,5 @@ export default function* registerViaEmail (ctx, email, password) {
 }
 
 
-//  register the service with the message queue
-register(META, INPUT_SCHEMA, OUTPUT_SCHEMA, registerViaEmail);
-
 //  expose over http
-bindToHttp(META, INPUT_SCHEMA, OUTPUT_SCHEMA);
+bindToHttp(CONF.meta, INPUT_SCHEMA, OUTPUT_SCHEMA, registerViaEmail);
